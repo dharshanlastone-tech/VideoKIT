@@ -1,16 +1,18 @@
 # VideoKit publishing guide
 
-This document describes how to release VideoKit when the project owner is ready.
-**Nothing has been uploaded or published.** The project repository URL supplied
-by the owner is https://github.com/dharshanlastone-tech/VideoKIT. The local
-workspace still needs to be connected to that GitHub repository before source
-changes can be pushed.
+This document describes how VideoKit is released and how to ship future
+versions.
+
+**Release status (2026-11-15):** VideoKit `0.1.0` is published on
+[PyPI](https://pypi.org/project/videokit/). The VS Code extension is published
+on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=dharshanlastone-tech.videokit).
+The source is at https://github.com/dharshanlastone-tech/VideoKIT, and the
+initial release is pushed to the `main` branch.
 
 ## What users will install
 
 The Python project distribution is named `videokit`. PyPI package names are
-case-insensitive, so after a successful release both of these refer to the same
-distribution:
+case-insensitive, so both of these install the same published distribution:
 
 ```powershell
 python -m pip install videokit
@@ -24,7 +26,8 @@ not require a paid VideoKit account or service.
 The VS Code extension is a different product, published through the Visual
 Studio Marketplace. Its full Marketplace identifier is
 `dharshanlastone-tech.videokit`. The owner confirmed the Marketplace publisher
-ID `dharshanlastone-tech`, and `vscode-extension/package.json` now uses it.
+ID `dharshanlastone-tech`; `vscode-extension/package.json` uses it, and version
+`0.1.0` is published.
 Publisher IDs are Marketplace namespaces; they are separate from GitHub
 usernames, although this owner chose matching names.
 
@@ -36,25 +39,24 @@ usernames, although this owner chose matching names.
   `dharshanlastone-tech` publisher. Manage it at the [Marketplace publisher
   management page](https://marketplace.visualstudio.com/manage).
 - Publishing tokens are credentials. Do not paste them into source files,
-  commit them, or send them in chat. Prefer PyPI Trusted Publishing with a
-  repository CI workflow after the repository is established. Microsoft's
-  current Marketplace guidance recommends GitHub Actions Trusted Publishing
-  with OIDC; if you use a personal access token instead, keep it out of source
-  files and store it only as a protected CI secret.
+  commit them, send them in chat, or include them in shell history. Prefer PyPI
+  Trusted Publishing with a repository CI workflow for future releases. For
+  manual uploads, store a PyPI API token in the operating system keyring and
+  delete any temporary file that held it. Rotate any credential that is
+  accidentally exposed.
 
-## Before the first public release
+## Before each release
 
 1. **Confirm ownership and identity.** Confirm the license header and that the
-   publisher account belongs to the project owner.
-2. **Connect the source checkout.** The repository URL has been added to the
-   extension and Python package metadata. Connect this local checkout to the
-   owner's GitHub repository before pushing any changes.
-3. **Check the names again.** PyPI's `videokit` lookup returned 404 during the
-   local pre-release check. The Marketplace page lookup for `videokit.videokit`
-   also returned 404. These results are not reservations or guarantees; check
-   registration and ownership directly immediately before release.
+   PyPI and Marketplace accounts belong to the project owner.
+2. **Connect the source checkout.** The local checkout is connected to
+   https://github.com/dharshanlastone-tech/VideoKIT. Push approved changes to
+   `main` before publishing.
+3. **Check names and versions.** The `videokit` name is registered on PyPI;
+   never reuse the published `0.1.0` version. Confirm that the Marketplace
+   listing still belongs to the `dharshanlastone-tech` publisher.
 4. **Review the distribution names and legal details.** The package name is
-   provisional. Check names and trademarks. MIT permits free use and
+   registered. Check names and trademarks. MIT permits free use and
    redistribution; it does not make the project public domain.
 5. **Choose a version.** Keep `python-package/pyproject.toml`,
    `python-package/src/videokit/__init__.py`, and
@@ -88,22 +90,26 @@ computer.
 ## Upload the Python distribution
 
 Do this only after account, package name, repository, version, and artifacts
-have been reviewed. Prefer configuring PyPI Trusted Publishing in the owner's
-repository and publishing from a protected release workflow. For a deliberate
-manual release, upload the built artifacts with Twine from a protected local
-environment:
+have been reviewed. The initial `0.1.0` release was uploaded manually with
+Twine. For future releases, prefer configuring PyPI Trusted Publishing and
+publishing from a protected release workflow.
+
+For a deliberate manual release, store an API token in the operating system
+keyring and upload the built artifacts from a protected local environment:
 
 ```powershell
-python -m twine upload dist/*
+python -m keyring set https://upload.pypi.org/legacy/ __token__
+python -m twine upload --non-interactive -u __token__ dist/*
 ```
 
-Do not put a PyPI token in this command, a script, or a committed file. Follow
-PyPI's current token/keyring guidance when authenticating.
+Enter the token only at the hidden keyring prompt. Do not put a PyPI token in
+this command, a script, or a committed file. For future releases, create a
+token scoped to the `videokit` project instead of an account-wide token.
 
 After publication, verify the release from a clean environment:
 
 ```powershell
-python -m pip install VideoKIT
+python -m pip install --upgrade videokit
 python -c "import videokit; print(videokit.__version__)"
 ```
 
@@ -126,11 +132,11 @@ The repository URL is configured in the extension and Python package metadata.
 
 ## Publish the VS Code extension
 
-1. The owner has created the `dharshanlastone-tech` publisher; the extension
-   manifest is configured to publish as `dharshanlastone-tech.videokit`.
-2. Prefer configuring Marketplace Trusted Publishing for the GitHub Actions
-   release workflow, so it can publish through OIDC without a stored token.
-   Microsoft's setup steps are in the [official
+1. The `dharshanlastone-tech` publisher owns the extension; version `0.1.0` is
+   published as `dharshanlastone-tech.videokit`.
+2. For future releases, prefer configuring Marketplace Trusted Publishing for
+   the GitHub Actions release workflow, so it can publish through OIDC without a
+   stored token. Microsoft's setup steps are in the [official
    guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#publish-with-github-actions-and-trusted-publishing).
    If you choose a personal access token instead, protect it as a CI secret;
    never commit or share it.
@@ -146,11 +152,14 @@ VSCE may prompt for authentication. Use the official publisher workflow and
 store credentials securely. Verify the Marketplace listing and install it from
 a clean VS Code profile after publication.
 
-## Current release blockers
+## Release status and follow-ups
 
-- The repository URL is configured, but this local checkout still needs to be
-  connected to it before changes can be pushed.
-- Account ownership and name availability must be confirmed at release time.
-- PyPI/Marketplace release artifacts have only been built locally; no public
-  upload or Extension Development Host UI test has been performed.
+- VideoKit `0.1.0` is live on PyPI and the VS Code extension is live on the
+  Visual Studio Marketplace.
+- The source is pushed to the `main` branch at
+  https://github.com/dharshanlastone-tech/VideoKIT.
+- Add CI and PyPI Trusted Publishing for future releases when the repository
+  workflow permissions are configured.
+- Use a project-scoped PyPI token or Trusted Publishing for later versions.
+  Rotate any credential that is exposed.
 - Users must install FFmpeg separately for media operations.
