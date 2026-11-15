@@ -1,0 +1,54 @@
+{
+  "name": "videokit",
+  "displayName": "VideoKit",
+  "description": "Python completions and documentation for the implemented VideoKit API.",
+  "version": "0.1.0",
+  "publisher": "dharshanlastone-tech",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dharshanlastone-tech/VideoKIT.git"
+  },
+  "homepage": "https://github.com/dharshanlastone-tech/VideoKIT",
+  "bugs": {
+    "url": "https://github.com/dharshanlastone-tech/VideoKIT/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "activationEvents": [
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "videokit.refreshApi",
+        "title": "VideoKit: Refresh Python API"
+      },
+      {
+        "command": "videokit.openVideoPreview",
+        "title": "VideoKit: Open Video Preview"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "python",
+        "path": "./snippets/videokit.code-snippets"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5"
+  }
+}

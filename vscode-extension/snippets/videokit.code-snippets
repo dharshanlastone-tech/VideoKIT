@@ -1,0 +1,56 @@
+{
+  "VideoKit: load and export a video": {
+    "prefix": "videokit-video",
+    "body": [
+      "from videokit import Video",
+      "",
+      "video = Video(\"${1:input.mp4}\")",
+      "clip = video.cut(${2:0}, ${3:10})",
+      "clip.export(\"${4:output.mp4}\")"
+    ],
+    "description": "Load a video, select a real VideoKit time range, and export it."
+  },
+  "VideoKit: edit a video clip": {
+    "prefix": "videokit-edit",
+    "body": [
+      "from videokit import Video",
+      "",
+      "video = Video(\"${1:input.mp4}\")",
+      "clip = (",
+      "    video.cut(${2:0}, ${3:10})",
+      "    .speed(${4:1.5})",
+      "    .fade_in(${5:0.5})",
+      ")",
+      "clip.export(\"${6:output.mp4}\")"
+    ],
+    "description": "Create a clip with implemented speed and fade methods."
+  },
+  "VideoKit: create a timeline": {
+    "prefix": "videokit-timeline",
+    "body": [
+      "from videokit import Timeline, Video",
+      "",
+      "first = Video(\"${1:first.mp4}\")",
+      "second = Video(\"${2:second.mp4}\")",
+      "timeline = Timeline()",
+      "timeline.add(first.cut(${3:0}, ${4:5}))",
+      "timeline.add(second.cut(${5:0}, ${6:5}), crossfade=${7:1})",
+      "timeline.export(\"${8:output.mp4}\")"
+    ],
+    "description": "Join clips and crossfade with the implemented Timeline API."
+  },
+  "VideoKit: add background audio": {
+    "prefix": "videokit-audio",
+    "body": [
+      "from videokit import Audio, Timeline, Video",
+      "",
+      "video = Video(\"${1:video.mp4}\")",
+      "music = Audio(\"${2:music.mp3}\").cut(${3:0}, ${4:30}).volume(${5:0.2})",
+      "timeline = Timeline()",
+      "timeline.add(video.cut(${6:0}, ${7:30}))",
+      "timeline.add_audio(music, at=${8:0})",
+      "timeline.export(\"${9:output.mp4}\")"
+    ],
+    "description": "Add a real Audio clip to a VideoKit timeline."
+  }
+}
