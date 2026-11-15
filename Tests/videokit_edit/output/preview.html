@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VideoKit test edit — Mira and Twinkle</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10151f;
+      --panel: #182231;
+      --ink: #eef4ff;
+      --muted: #9fb0c7;
+      --accent: #f6cf6a;
+      --line: #2a3a50;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 50% -20%, #21344d 0, var(--bg) 55%);
+      color: var(--ink);
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    main { width: min(1100px, 94vw); margin: 0 auto; padding: 40px 0 64px; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.03em; }
+    h2 { margin: 0 0 12px; font-size: 1.15rem; color: var(--accent); }
+    p { color: var(--muted); }
+    .intro { max-width: 72ch; margin: 0 0 32px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+    video { display: block; width: 100%; max-height: 72vh; border-radius: 12px; background: #000; }
+    .poster { display: block; width: 100%; max-width: 300px; border-radius: 12px; margin-top: 8px; }
+    .links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
+    a { color: var(--ink); text-decoration: none; border: 1px solid var(--line); padding: 9px 13px; border-radius: 999px; background: #142033; }
+    a:hover { border-color: var(--accent); }
+    code { background: #0c121b; padding: 2px 6px; border-radius: 6px; }
+    .meta { font-size: 0.9rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Mira and Twinkle</h1>
+    <p class="intro">
+      Two VideoKit edits of the local story video. The source is untouched.
+      Every cut, grade, fade, and crossfade was made with the published
+      <code>videokit</code> Python package.
+    </p>
+
+    <div class="grid">
+      <section class="card">
+        <h2>47-second story trailer</h2>
+        <video controls preload="metadata" poster="videokit_poster.jpg">
+          <source src="videokit_story_trailer.mp4" type="video/mp4">
+          Your browser does not support MP4 playback.
+        </video>
+        <p class="meta">1080 × 1350 · 30 fps · H.264/AAC · sentence-complete cuts</p>
+      </section>
+
+      <section class="card">
+        <h2>Full director's cut</h2>
+        <video controls preload="metadata" poster="videokit_poster.jpg">
+          <source src="videokit_directors_cut.mp4" type="video/mp4">
+          Your browser does not support MP4 playback.
+        </video>
+        <p class="meta">1080 × 1350 · 30 fps · H.264/AAC · complete story</p>
+      </section>
+
+      <section class="card">
+        <h2>Poster frame</h2>
+        <img class="poster" src="videokit_poster.jpg" alt="Mira holding the glowing star">
+        <p class="meta">Extracted with <code>Video.extract_frame()</code></p>
+      </section>
+
+      <section class="card">
+        <h2>Thumbnail</h2>
+        <img class="poster" src="videokit_thumbnail.jpg" alt="Mira and Twinkle in the final village scene">
+        <p class="meta">Made with <code>Video.thumbnail()</code></p>
+      </section>
+    </div>
+
+    <div class="links">
+      <a href="../README.md">Edit project README</a>
+      <a href="edit_plan.json">Edit plan JSON</a>
+      <a href="../edit_video.py">edit_video.py</a>
+      <a href="../edit_plan.py">edit_plan.py</a>
+    </div>
+  </main>
+</body>
+</html>

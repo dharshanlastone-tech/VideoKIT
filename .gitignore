@@ -8,3 +8,7 @@ dist/
 *.vsix
 vscode-extension/node_modules/
 vscode-extension/out/
+Tests/*.mp4
+Tests/*.mov
+Tests/*.mkv
+Tests/*.webm
