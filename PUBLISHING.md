@@ -3,11 +3,12 @@
 This document describes how VideoKit is released and how to ship future
 versions.
 
-**Release status (2026-11-15):** VideoKit `0.1.0` is published on
+**Release status (2026-11-15):** VideoKit `0.1.1` is published on
 [PyPI](https://pypi.org/project/videokit/). The VS Code extension is published
 on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=dharshanlastone-tech.videokit).
 The source is at https://github.com/dharshanlastone-tech/VideoKIT, and the
-initial release is pushed to the `main` branch.
+release is pushed to the `main` branch. Version `0.1.1` fixes the rotated-frame
+size calculation and adds `Clip.tilt()` for smooth animated rotation beats.
 
 ## What users will install
 
@@ -53,8 +54,8 @@ usernames, although this owner chose matching names.
    https://github.com/dharshanlastone-tech/VideoKIT. Push approved changes to
    `main` before publishing.
 3. **Check names and versions.** The `videokit` name is registered on PyPI;
-   never reuse the published `0.1.0` version. Confirm that the Marketplace
-   listing still belongs to the `dharshanlastone-tech` publisher.
+   never reuse the published `0.1.0` or `0.1.1` versions. Confirm that the
+   Marketplace listing still belongs to the `dharshanlastone-tech` publisher.
 4. **Review the distribution names and legal details.** The package name is
    registered. Check names and trademarks. MIT permits free use and
    redistribution; it does not make the project public domain.

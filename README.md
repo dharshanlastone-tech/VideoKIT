@@ -39,9 +39,10 @@ extension's API-aware features.
   interactive playback and seek panel.
 - [Publishing guide](./PUBLISHING.md): release process, artifact checks, and
   safe publishing steps.
-- [Test edit](./Tests/videokit_edit/README.md): a polished VideoKit edit of the
-  local story video, with reusable code, tests, two rendered cuts, stills, and
-  an HTML preview page.
+- [Test edit](./Tests/videokit_edit/README.md): a polished 9:16 VideoKit
+  masterpiece and trailer cut from the local story video, with speed ramps,
+  contrast effects, animated tilts, reusable code, tests, stills, and an HTML
+  preview page.
 
 ## Development
 

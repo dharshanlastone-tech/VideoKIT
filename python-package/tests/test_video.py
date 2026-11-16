@@ -1,3 +1,4 @@
+import math
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -27,6 +28,46 @@ class VideoTests(unittest.TestCase):
             clip.to_vertical(width=720, height=720)
         with self.assertRaises(ValueError):
             clip.to_vertical(focus_x=2)
+
+    def test_rotate_uses_the_angle_in_rotw_and_roth(self):
+        clip = Clip(Path("movie.mp4"), 0, 10, _width=1080, _height=1350)
+        rotated = clip.rotate(6)
+        expression = rotated._filters[-1]
+        radians = math.radians(6)
+
+        self.assertIn(f"rotw({radians:.12g})", expression)
+        self.assertIn(f"roth({radians:.12g})", expression)
+        self.assertNotIn("rotw(iw)", expression)
+        self.assertEqual(
+            (rotated._width, rotated._height),
+            (
+                math.ceil(1080 * math.cos(radians) + 1350 * math.sin(radians)),
+                math.ceil(1350 * math.cos(radians) + 1080 * math.sin(radians)),
+            ),
+        )
+
+    def test_tilt_animates_and_sizes_for_the_largest_angle(self):
+        clip = Clip(Path("movie.mp4"), 0, 10, _width=1080, _height=1350)
+        tilted = clip.tilt(6, start=0, end=10, from_degrees=0)
+        expression = tilted._filters[-1]
+        radians = math.radians(6)
+
+        self.assertIn("rotate='if(lt(t,0)", expression)
+        self.assertIn(f"rotw({radians:.12g})", expression)
+        self.assertEqual(
+            (tilted._width, tilted._height),
+            (
+                math.ceil(1080 * math.cos(radians) + 1350 * math.sin(radians)),
+                math.ceil(1350 * math.cos(radians) + 1080 * math.sin(radians)),
+            ),
+        )
+
+    def test_tilt_rejects_times_outside_the_clip(self):
+        clip = Clip(Path("movie.mp4"), 0, 10, _width=1080, _height=1350)
+        with self.assertRaises(ValueError):
+            clip.tilt(6, start=0, end=11)
+        with self.assertRaises(ValueError):
+            clip.tilt(6, start=-1, end=2)
 
     def test_render_settings_have_explicit_quality_levels(self):
         self.assertEqual(RenderSettings("balanced").preset, "medium")

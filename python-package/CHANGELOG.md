@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1
+
+- Fix `clip.rotate()` so its output frame uses the rotation angle when
+  calculating `rotw()`/`roth()` dimensions.
+- Add `clip.tilt()` for smooth, animated rotation beats.
+- Correct the speed documentation to note that audio tempo changes while pitch
+  is preserved.
+
 ## 0.1.0
 
 - Add video and audio metadata inspection.

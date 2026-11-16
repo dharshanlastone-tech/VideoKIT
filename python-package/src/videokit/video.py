@@ -218,12 +218,55 @@ class Clip:
         if first < 0 or last <= first or last > self.duration:
             raise ValueError("Rotation times must be within the clip duration.")
         radians = math.radians(angle)
-        expression = f"rotate={radians:.12g}:ow=rotw(iw):oh=roth(ih):c=black"
+        expression = (
+            f"rotate={radians:.12g}:ow=rotw({radians:.12g}):oh=roth({radians:.12g}):c=black"
+        )
         if first != 0 or last != self.duration:
             expression += f":enable='between(t,{first:.9g},{last:.9g})'"
         size = None
         if self._width and self._height:
             cosine, sine = abs(math.cos(radians)), abs(math.sin(radians))
+            size = (
+                math.ceil(self._width * cosine + self._height * sine),
+                math.ceil(self._height * cosine + self._width * sine),
+            )
+        return self._edited(filters=(expression,), size=size)
+
+    def tilt(
+        self,
+        degrees: float,
+        *,
+        start: float = 0,
+        end: float | None = None,
+        from_degrees: float = 0.0,
+    ) -> Clip:
+        """Smoothly rotate from ``from_degrees`` to ``degrees``.
+
+        The rotation is animated over the selected playback-time interval. The
+        output frame grows to fit the largest angle; crop back to the target
+        size after this edit to remove the exposed corners.
+        """
+        target = _seconds(degrees, "degrees")
+        origin = _seconds(from_degrees, "from_degrees")
+        first = _seconds(start, "start")
+        last = self.duration if end is None else _seconds(end, "end")
+        if first < 0 or last <= first or last > self.duration:
+            raise ValueError("Tilt times must be within the clip duration.")
+        start_radians = math.radians(origin)
+        end_radians = math.radians(target)
+        largest = max(abs(start_radians), abs(end_radians))
+        angle = (
+            f"if(lt(t,{first:.9g}),{start_radians:.12g},"
+            f"if(gt(t,{last:.9g}),{end_radians:.12g},"
+            f"{start_radians:.12g}+({end_radians - start_radians:.12g})"
+            f"*(t-{first:.9g})/{last - first:.9g}))"
+        )
+        expression = (
+            f"rotate='{angle}':ow=rotw({largest:.12g}):oh=roth({largest:.12g}):c=black"
+        )
+        size = None
+        if self._width and self._height:
+            cosine, sine = abs(math.cos(largest)), abs(math.sin(largest))
             size = (
                 math.ceil(self._width * cosine + self._height * sine),
                 math.ceil(self._height * cosine + self._width * sine),

@@ -3,84 +3,143 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VideoKit test edit — Mira and Twinkle</title>
+  <title>VideoKit masterpiece — Mira and Twinkle</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #10151f;
-      --panel: #182231;
+      --bg: #0b111b;
+      --panel: #141f2e;
+      --panel-2: #101927;
       --ink: #eef4ff;
       --muted: #9fb0c7;
       --accent: #f6cf6a;
-      --line: #2a3a50;
+      --line: #293a50;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: radial-gradient(circle at 50% -20%, #21344d 0, var(--bg) 55%);
+      background:
+        radial-gradient(circle at 50% -20%, #263e5c 0, var(--bg) 58%),
+        var(--bg);
       color: var(--ink);
       font: 16px/1.55 system-ui, -apple-system, Segoe UI, sans-serif;
     }
-    main { width: min(1100px, 94vw); margin: 0 auto; padding: 40px 0 64px; }
-    h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.03em; }
-    h2 { margin: 0 0 12px; font-size: 1.15rem; color: var(--accent); }
+    main { width: min(1180px, 94vw); margin: 0 auto; padding: 44px 0 72px; }
+    h1 { margin: 0 0 10px; font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.04em; }
+    h2 { margin: 0 0 10px; font-size: 1.18rem; color: var(--accent); }
+    h3 { margin: 30px 0 10px; font-size: 1.05rem; }
     p { color: var(--muted); }
-    .intro { max-width: 72ch; margin: 0 0 32px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
-    video { display: block; width: 100%; max-height: 72vh; border-radius: 12px; background: #000; }
-    .poster { display: block; width: 100%; max-width: 300px; border-radius: 12px; margin-top: 8px; }
-    .links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
-    a { color: var(--ink); text-decoration: none; border: 1px solid var(--line); padding: 9px 13px; border-radius: 999px; background: #142033; }
+    .intro { max-width: 76ch; margin: 0 0 34px; font-size: 1.03rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; align-items: start; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 18px; }
+    video {
+      display: block;
+      width: 100%;
+      max-height: 78vh;
+      border-radius: 14px;
+      background: #000;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+    }
+    .poster { display: block; width: 100%; max-width: 340px; border-radius: 14px; margin-top: 8px; }
+    .links { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+    a { color: var(--ink); text-decoration: none; border: 1px solid var(--line); padding: 9px 13px; border-radius: 999px; background: #141f30; }
     a:hover { border-color: var(--accent); }
-    code { background: #0c121b; padding: 2px 6px; border-radius: 6px; }
-    .meta { font-size: 0.9rem; color: var(--muted); }
+    code { background: #0a111a; padding: 2px 6px; border-radius: 6px; }
+    .meta { font-size: 0.9rem; color: var(--muted); margin: 10px 0 0; }
+    .effects { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+    .effects li { margin: 4px 0; }
+    .clean { margin-top: 34px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .clean-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+    details { background: var(--panel-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px; }
+    summary { cursor: pointer; color: var(--ink); font-weight: 600; }
+    .small { font-size: 0.9rem; }
   </style>
 </head>
 <body>
   <main>
     <h1>Mira and Twinkle</h1>
     <p class="intro">
-      Two VideoKit edits of the local story video. The source is untouched.
-      Every cut, grade, fade, and crossfade was made with the published
-      <code>videokit</code> Python package.
+      A true 9:16 VideoKit edit of the local story. The source is untouched.
+      The baked-in pillarbox is cropped away, then the film is rebuilt with
+      speed ramps, contrast and saturation pulses, animated tilt beats,
+      crossfades, and fades.
     </p>
 
     <div class="grid">
       <section class="card">
-        <h2>47-second story trailer</h2>
-        <video controls preload="metadata" poster="videokit_poster.jpg">
-          <source src="videokit_story_trailer.mp4" type="video/mp4">
+        <h2>Full masterpiece · 4:02</h2>
+        <video controls preload="metadata" playsinline poster="videokit_poster.jpg">
+          <source src="videokit_masterpiece.mp4" type="video/mp4">
           Your browser does not support MP4 playback.
         </video>
-        <p class="meta">1080 × 1350 · 30 fps · H.264/AAC · sentence-complete cuts</p>
+        <p class="meta">1080 × 1920 · 30 fps · H.264/AAC · complete story</p>
       </section>
 
       <section class="card">
-        <h2>Full director's cut</h2>
-        <video controls preload="metadata" poster="videokit_poster.jpg">
-          <source src="videokit_directors_cut.mp4" type="video/mp4">
+        <h2>Vertical trailer · 0:48</h2>
+        <video controls preload="metadata" playsinline poster="videokit_poster.jpg">
+          <source src="videokit_masterpiece_trailer.mp4" type="video/mp4">
           Your browser does not support MP4 playback.
         </video>
-        <p class="meta">1080 × 1350 · 30 fps · H.264/AAC · complete story</p>
+        <p class="meta">1080 × 1920 · 30 fps · H.264/AAC · sentence-complete cuts</p>
+      </section>
+
+      <section class="card">
+        <h2>What was added</h2>
+        <ul class="effects">
+          <li>True 9:16 reframe from the 752×1350 illustration</li>
+          <li>Speed ramps from 0.85× to 1.22×</li>
+          <li>Per-scene brightness, contrast, and saturation grades</li>
+          <li>Six animated tilt beats with a punch-in and no black corners</li>
+          <li>Sentence-safe audio cuts plus short crossfades</li>
+          <li>Opening fade-in and a closing fade-out</li>
+        </ul>
+        <p class="meta">Made with <code>cut()</code>, <code>crop()</code>, <code>to_vertical()</code>, <code>speed()</code>, <code>contrast()</code>, <code>saturation()</code>, <code>tilt()</code>, and <code>Timeline</code>.</p>
       </section>
 
       <section class="card">
         <h2>Poster frame</h2>
         <img class="poster" src="videokit_poster.jpg" alt="Mira holding the glowing star">
-        <p class="meta">Extracted with <code>Video.extract_frame()</code></p>
+        <p class="meta">Extracted from the finished vertical cut with <code>Video.extract_frame()</code></p>
       </section>
 
       <section class="card">
         <h2>Thumbnail</h2>
         <img class="poster" src="videokit_thumbnail.jpg" alt="Mira and Twinkle in the final village scene">
-        <p class="meta">Made with <code>Video.thumbnail()</code></p>
+        <p class="meta">Made with <code>Video.thumbnail()</code> at 540 × 960</p>
       </section>
     </div>
+
+    <section class="clean">
+      <details>
+        <summary>Clean 4:5 alternates (no effects)</summary>
+        <p class="small">The original canvas kept for comparison. The main vertical cut is the finished film.</p>
+        <div class="clean-grid">
+          <div>
+            <h3>Clean director's cut · 4:13</h3>
+            <video controls preload="none" poster="videokit_poster.jpg">
+              <source src="videokit_directors_cut.mp4" type="video/mp4">
+              Your browser does not support MP4 playback.
+            </video>
+            <p class="meta">1080 × 1350 · 30 fps · H.264/AAC</p>
+          </div>
+          <div>
+            <h3>Clean trailer · 0:47</h3>
+            <video controls preload="none" poster="videokit_poster.jpg">
+              <source src="videokit_story_trailer.mp4" type="video/mp4">
+              Your browser does not support MP4 playback.
+            </video>
+            <p class="meta">1080 × 1350 · 30 fps · H.264/AAC</p>
+          </div>
+        </div>
+      </details>
+    </section>
 
     <div class="links">
       <a href="../README.md">Edit project README</a>
       <a href="edit_plan.json">Edit plan JSON</a>
+      <a href="masterpiece_contact_sheet.jpg">Masterpiece contact sheet</a>
+      <a href="masterpiece_trailer_contact_sheet.jpg">Trailer contact sheet</a>
       <a href="../edit_video.py">edit_video.py</a>
       <a href="../edit_plan.py">edit_plan.py</a>
     </div>

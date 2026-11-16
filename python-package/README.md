@@ -277,8 +277,9 @@ the final delivery, choose `"balanced"` or `"high"` based on your needs.
 
 | Method | Behavior |
 | --- | --- |
-| `clip.speed(factor)` | Multiply playback speed. `2` is twice as fast; `0.5` is half speed. Audio pitch changes with speed. |
+| `clip.speed(factor)` | Multiply playback speed. `2` is twice as fast; `0.5` is half speed. Audio tempo changes while pitch is preserved. |
 | `clip.rotate(degrees, start=0, end=None)` | Rotate clockwise during a time interval relative to the clip's playback. Exposed pixels are black. |
+| `clip.tilt(degrees, start=0, end=None, from_degrees=0)` | Smoothly animate from `from_degrees` to `degrees` over the interval. The frame grows to fit the largest angle; crop back afterwards. |
 | `clip.resize(width, height)` | Fit inside the requested even-sized frame and pad unused space with black; aspect ratio is preserved. |
 | `clip.to_vertical(...)` / `clip.to_horizontal(...)` | Reframe to 9:16 portrait or 16:9 landscape using centered cropping or black-bar fitting. |
 | `clip.crop(width, height, x=0, y=0)` | Crop an even-sized pixel rectangle from the current frame. |
@@ -299,6 +300,17 @@ portrait.export("portrait.mp4")
 `rotate()` accepts any finite angle in degrees. Rotation can increase the output
 frame dimensions to keep the rotated picture visible. Crop dimensions and
 positions are checked against the original video size.
+
+`tilt()` is the animated version. It is useful for a smooth camera-tilt beat:
+
+```python
+beat = video.cut(0, 4).tilt(6, from_degrees=0)
+beat.export("tilt.mp4")
+```
+
+The output frame grows to fit the largest angle. For a clean 9:16 result,
+crop a slightly zoomed frame, upscale it, tilt it, then crop back to the final
+size. The `Tests/videokit_edit` project contains a complete working example.
 
 ## Extract a frame
 
