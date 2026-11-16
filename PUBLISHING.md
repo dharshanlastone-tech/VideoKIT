@@ -3,7 +3,7 @@
 This document describes how VideoKit is released and how to ship future
 versions.
 
-**Release status (2026-11-15):** VideoKit `0.1.1` is published on
+**Release status (2026-11-16):** VideoKit `0.1.1` is published on
 [PyPI](https://pypi.org/project/videokit/). The VS Code extension is published
 on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=dharshanlastone-tech.videokit).
 The source is at https://github.com/dharshanlastone-tech/VideoKIT, and the
@@ -155,7 +155,7 @@ a clean VS Code profile after publication.
 
 ## Release status and follow-ups
 
-- VideoKit `0.1.0` is live on PyPI and the VS Code extension is live on the
+- VideoKit `0.1.1` is live on PyPI and the VS Code extension is live on the
   Visual Studio Marketplace.
 - The source is pushed to the `main` branch at
   https://github.com/dharshanlastone-tech/VideoKIT.
@@ -164,3 +164,5 @@ a clean VS Code profile after publication.
 - Use a project-scoped PyPI token or Trusted Publishing for later versions.
   Rotate any credential that is exposed.
 - Users must install FFmpeg separately for media operations.
+- The 9:16 effects masterpiece and trailer are rendered under
+  `Tests/videokit_edit/output`; the large MP4 files stay out of Git.
